@@ -5,16 +5,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title A contract for fair hiring practices and standardized application scoring
 /// @dev Inherits from OpenZeppelin's Ownable contract for ownership management
-contract FairHiring is Ownable(msg.sender) {
-
-    /// @notice Event emitted when a job is added
-    /// @param jobId The ID of the job added
-    /// @param title The title of the job
+contract FairHiring is Ownable (msg.sender) {
     event JobAdded(uint256 jobId, string title);
-
-    /// @notice Event emitted when a candidate's application is scored
-    /// @param candidateId The ID of the candidate
-    /// @param totalScore The total score of the candidate's application
     event CandidateScored(uint256 candidateId, uint256 totalScore);
 
     struct Job {
@@ -34,14 +26,17 @@ contract FairHiring is Ownable(msg.sender) {
         bool scored;
     }
 
+    struct ScoringCriteria {
+        uint256 experienceWeight;
+        uint256 educationWeight;
+        uint256 skillWeight;
+        uint256 bonusPoints;
+    }
+
     Job[] public jobs;
     Candidate[] public candidates;
-    mapping(uint256 => uint256[]) private jobToCandidates;
+    mapping(uint256 => ScoringCriteria) public jobScoringCriteria;
 
-    /// @notice Adds a new job to the contract
-    /// @param _title The title of the job
-    /// @param _description The description of the job
-    /// @dev Only callable by the owner (HR manager)
     function addJob(string calldata _title, string calldata _description) external onlyOwner {
         uint256 jobId = jobs.length;
         jobs.push(Job({
@@ -53,43 +48,74 @@ contract FairHiring is Ownable(msg.sender) {
         emit JobAdded(jobId, _title);
     }
 
-    /// @notice Scores a candidate's application
-    /// @param _candidateId The ID of the candidate
-    /// @param _experiencePoints Points awarded for experience
-    /// @param _educationPoints Points awarded for education
-    /// @param _skillPoints Points awarded for skills
-    /// @dev Only callable by the owner (HR manager)
-    /// @dev Emits the CandidateScored event
-    function scoreCandidate(
-        uint256 _candidateId,
-        uint256 _experiencePoints,
-        uint256 _educationPoints,
-        uint256 _skillPoints
-    ) external onlyOwner {
-        require(_candidateId < candidates.length, "Candidate does not exist.");
-        require(!candidates[_candidateId].scored, "Candidate has already been scored.");
-
-        Candidate storage candidate = candidates[_candidateId];
-        candidate.experienceScore = _experiencePoints;
-        candidate.educationScore = _educationPoints;
-        candidate.skillScore = _skillPoints;
-        candidate.totalScore = calculateTotalScore(_experiencePoints, _educationPoints, _skillPoints);
-        candidate.scored = true;
-
-        emit CandidateScored(_candidateId, candidate.totalScore);
+    function setScoringCriteria(
+        uint256 _jobId,
+        uint256 _experienceWeight,
+        uint256 _educationWeight,
+        uint256 _skillWeight,
+        uint256 _bonusPoints
+    ) public onlyOwner {
+        jobScoringCriteria[_jobId] = ScoringCriteria({
+            experienceWeight: _experienceWeight,
+            educationWeight: _educationWeight,
+            skillWeight: _skillWeight,
+            bonusPoints: _bonusPoints
+        });
     }
 
-    /// @notice Calculates the total score for a candidate
-    /// @param _experiencePoints Points awarded for experience
-    /// @param _educationPoints Points awarded for education
-    /// @param _skillPoints Points awarded for skills
-    /// @return The total score for the candidate
-    function calculateTotalScore(
-        uint256 _experiencePoints,
-        uint256 _educationPoints,
-        uint256 _skillPoints
-    ) private pure returns (uint256) {
-        return _experiencePoints + _educationPoints + _skillPoints; // Simplified scoring
+    function scoreCandidate(
+        uint256 _candidateId,
+        uint256 _yearsOfExperience,
+        uint256 _educationLevel,
+        uint256[] memory _skillPoints
+    ) external onlyOwner {
+        require(_candidateId < candidates.length, "Candidate does not exist.");
+        Candidate storage candidate = candidates[_candidateId];
+        require(!candidate.scored, "Candidate has already been scored.");
+
+        ScoringCriteria memory criteria = jobScoringCriteria[candidate.jobId];
+        uint256 score = 0;
+        score += _yearsOfExperience * criteria.experienceWeight;
+        score += _educationLevel * criteria.educationWeight;
+
+        for (uint256 i = 0; i < _skillPoints.length; i++) {
+            score += _skillPoints[i] * criteria.skillWeight;
+        }
+
+        score += criteria.bonusPoints; // Add any bonus points if applicable
+
+        candidate.experienceScore = _yearsOfExperience;
+        candidate.educationScore = _educationLevel;
+        candidate.skillScore = calculateSkillsTotal(_skillPoints, criteria.skillWeight);
+        candidate.totalScore = score;
+        candidate.scored = true;
+
+        emit CandidateScored(_candidateId, score);
+    }
+
+    function calculateSkillsTotal(uint256[] memory _skillPoints, uint256 _skillWeight) private pure returns (uint256) {
+        uint256 totalSkillScore = 0;
+        for (uint256 i = 0; i < _skillPoints.length; i++) {
+            totalSkillScore += _skillPoints[i] * _skillWeight;
+        }
+        return totalSkillScore;
+    }
+
+    // Function to add a candidate might look something like this:
+    function addCandidate(
+        uint256 _jobId, 
+        string memory _name, 
+        string memory _qualifications, 
+        uint256 _yearsOfExperience
+    ) public onlyOwner {
+        // Add logic to store the candidate's information
+        // and associate them with a job ID
+    }
+
+    // Function to get a candidate's score
+    function getCandidateScore(uint256 _candidateId) public view returns (uint256) {
+        require(_candidateId < candidates.length, "Candidate does not exist.");
+        return candidates[_candidateId].totalScore;
     }
 
     // ... other functions and state variables
