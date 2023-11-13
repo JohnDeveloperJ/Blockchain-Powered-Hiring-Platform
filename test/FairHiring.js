@@ -1,7 +1,3 @@
-
-
-const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
-
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
@@ -13,13 +9,10 @@ describe("FairHiring", function () {
     // Get the ContractFactory and Signers here.
     const FairHiring = await ethers.getContractFactory("FairHiring");
     [HRManager, candidate] = await ethers.getSigners();
-  
-    // Deploy the contract
+
+    // Deploy the contract and assign it to fairHiring
     fairHiring = await FairHiring.deploy();
-    // There's no need to call `deployed()` as `deploy()` already waits for the contract to be mined.
   });
-  
-  
 
   // Test case: checking job posting
   describe("Job management", function () {
@@ -39,28 +32,27 @@ describe("FairHiring", function () {
   });
 
   // Test case: scoring a candidate
-describe("Candidate scoring", function () {
-  it("should correctly score a candidate", async function () {
-    // First, add a candidate
-    // Replace 'addCandidate' with the actual function name you use to add a candidate,
-    // and provide necessary arguments as required by that function
-    await fairHiring.connect(HRManager).addCandidate(/* candidate details */);
+  describe("Candidate scoring", function () {
+    it("should correctly score a candidate", async function () {
+      // Add a candidate before attempting to score them
+      // This is just an example. Replace the parameters with what your actual addCandidate function expects
+      await fairHiring.connect(HRManager).addCandidate("Alice", "Blockchain Developer", 5); // Add candidate logic needs to be implemented as per your contract
 
-    // The candidateId should be set to the index of the added candidate
-    // Assuming it is the first candidate and has an id of 0
-    const candidateId = 0;
-    const experiencePoints = 5;
-    const educationPoints = 3;
-    const skillPoints = 2;
+      const candidateId = 0; // The ID of the candidate you've just added, assuming it's the first and has ID 0
+      const experiencePoints = 5;
+      const educationPoints = 3;
+      const skillPoints = 2;
 
-    // Now you can score the candidate
-    await fairHiring.connect(HRManager).scoreCandidate(candidateId, experiencePoints, educationPoints, skillPoints);
+      // Now you can score the candidate
+      await fairHiring.connect(HRManager).scoreCandidate(candidateId, experiencePoints, educationPoints, skillPoints);
 
-    // After scoring, retrieve the candidate's score to verify the correct score has been calculated
-    const candidateScore = await fairHiring.connect(HRManager).getCandidateScore(candidateId);
-    const expectedTotalScore = experiencePoints + educationPoints + skillPoints;
+      // Retrieve the candidate's score to verify the correct score has been calculated
+      // Assuming getCandidateScore returns a struct or an object with a totalScore field
+      const candidateScore = await fairHiring.connect(HRManager).getCandidateScore(candidateId);
+      const expectedTotalScore = experiencePoints + educationPoints + skillPoints;
 
-    // Adjust the way you access the total score if your contract uses a different structure
-    expect(candidateScore.totalScore).to.equal(expectedTotalScore);
+      // Assert the expected total score
+      expect(candidateScore.totalScore).to.equal(expectedTotalScore);
+    });
   });
 });
