@@ -1,0 +1,11 @@
+{
+  "name": "Blockchain-Powered-Hiring-Platform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JohnDeveloperJ/Blockchain-Powered-Hiring-Platform",
+  "author": "john j <johnjjdev690@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "hardhat": "^2.19.0"
+  }
+}
