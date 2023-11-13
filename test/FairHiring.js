@@ -13,11 +13,13 @@ describe("FairHiring", function () {
     // Get the ContractFactory and Signers here.
     const FairHiring = await ethers.getContractFactory("FairHiring");
     [HRManager, candidate] = await ethers.getSigners();
-
-    // To deploy our contract, we just call deploy() and await for it to be deployed(), which happens once its transaction has been mined.
+  
+    // Deploy the contract
     fairHiring = await FairHiring.deploy();
-    await fairHiring.deployed();
+    // There's no need to call `deployed()` as `deploy()` already waits for the contract to be mined.
   });
+  
+  
 
   // Test case: checking job posting
   describe("Job management", function () {
