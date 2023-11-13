@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+
+import React, { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
+import AddJob from './components/AddJob';
+import contractABI from './contract-abi.json'; // Your contract ABI
 
 function App() {
+  const [contract, setContract] = useState(null);
+
+  useEffect(() => {
+    const init = async () => {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contractAddress = 'YOUR_CONTRACT_ADDRESS'; // Replace with your contract address
+      const fairHiringContract = new ethers.Contract(contractAddress, contractABI, signer);
+      setContract(fairHiringContract);
+    };
+    init();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>FairHiring Interface</h1>
+      {contract && <AddJob contract={contract} />}
+      {/* Include other components here and pass the contract as a prop */}
     </div>
   );
 }
