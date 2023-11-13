@@ -1,6 +1,6 @@
-Below is a README file in Markdown format, based on the pamphlet content provided:
 
-```markdown
+
+
 # FairHiring Smart Contract Guide for HR Management
 
 ## Introduction
@@ -66,4 +66,3 @@ For technical support or more information on the FairHiring smart contract, plea
 This README can serve as an introductory guide for HR managers and staff. It outlines the smart contract's purpose and provides a basic overview of how to interact with its features.
 ```
 
-When using this README, replace `[support_email/contact]` with the actual contact information where users can get support. Additionally, you may want to add real function signatures if they differ from the examples provided, and ensure all code snippets and commands are accurate and tested.
