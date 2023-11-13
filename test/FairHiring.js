@@ -39,22 +39,28 @@ describe("FairHiring", function () {
   });
 
   // Test case: scoring a candidate
-  describe("Candidate scoring", function () {
-    it("should correctly score a candidate", async function () {
-      const candidateId = 0; // assuming a candidate ID you would have added
-      const experiencePoints = 5;
-      const educationPoints = 3;
-      const skillPoints = 2;
+describe("Candidate scoring", function () {
+  it("should correctly score a candidate", async function () {
+    // First, add a candidate
+    // Replace 'addCandidate' with the actual function name you use to add a candidate,
+    // and provide necessary arguments as required by that function
+    await fairHiring.connect(HRManager).addCandidate(/* candidate details */);
 
-      // Assuming a scoreCandidate function exists and HR manager can score a candidate
-      await fairHiring.connect(HRManager).scoreCandidate(candidateId, experiencePoints, educationPoints, skillPoints);
+    // The candidateId should be set to the index of the added candidate
+    // Assuming it is the first candidate and has an id of 0
+    const candidateId = 0;
+    const experiencePoints = 5;
+    const educationPoints = 3;
+    const skillPoints = 2;
 
-      // Get the candidate's score to verify the correct score has been calculated
-      const candidateScore = await fairHiring.connect(HRManager).getCandidateScore(candidateId);
-      const expectedTotalScore = experiencePoints + educationPoints + skillPoints;
-      expect(candidateScore.totalScore).to.equal(expectedTotalScore);
-    });
+    // Now you can score the candidate
+    await fairHiring.connect(HRManager).scoreCandidate(candidateId, experiencePoints, educationPoints, skillPoints);
+
+    // After scoring, retrieve the candidate's score to verify the correct score has been calculated
+    const candidateScore = await fairHiring.connect(HRManager).getCandidateScore(candidateId);
+    const expectedTotalScore = experiencePoints + educationPoints + skillPoints;
+
+    // Adjust the way you access the total score if your contract uses a different structure
+    expect(candidateScore.totalScore).to.equal(expectedTotalScore);
   });
-
-  // Additional tests can be added here
 });
