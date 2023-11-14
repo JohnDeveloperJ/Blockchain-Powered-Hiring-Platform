@@ -4,7 +4,7 @@
 # FairHiring Smart Contract Guide for HR Management
 
 
-Here is the diagram illustrating the structure of the `FairHiring` smart contract:
+A diagram illustrating the structure of the `FairHiring` smart contract:
 
 ![FairHiring Smart Contract Structure](https://imgr.whimsical.com/thumbnails/CqoQ2MzWUzvoEJZ6o7PQTr/SjLnR7VzmvS6m9FUqevaaz)
 
