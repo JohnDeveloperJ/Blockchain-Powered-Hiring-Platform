@@ -3,6 +3,16 @@
 
 # FairHiring Smart Contract Guide for HR Management
 
+
+Here is the diagram illustrating the structure of the `FairHiring` smart contract:
+
+![FairHiring Smart Contract Structure](https://imgr.whimsical.com/thumbnails/CqoQ2MzWUzvoEJZ6o7PQTr/SjLnR7VzmvS6m9FUqevaaz)
+
+You can view or edit this diagram in Whimsical by following this link: [FairHiring Smart Contract Structure](https://whimsical.com/fairhiring-smart-contract-structure-CqoQ2MzWUzvoEJZ6o7PQTr?ref=chatgpt).
+
+
+
+
 ## Introduction
 Welcome to the FairHiring smart contract, an innovative blockchain solution designed to enhance the hiring process. This README will guide you through the smart contract functionalities and interface usage.
 
