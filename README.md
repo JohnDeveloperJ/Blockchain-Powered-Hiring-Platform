@@ -1,7 +1,17 @@
-Below is a README file in Markdown format, based on the pamphlet content provided:
 
-```markdown
+
+
 # FairHiring Smart Contract Guide for HR Management
+
+
+A diagram illustrating the structure of the `FairHiring` smart contract:
+
+![FairHiring Smart Contract Structure](https://imgr.whimsical.com/thumbnails/CqoQ2MzWUzvoEJZ6o7PQTr/SjLnR7VzmvS6m9FUqevaaz)
+
+You can view or edit this diagram in Whimsical by following this link: [FairHiring Smart Contract Structure](https://whimsical.com/fairhiring-smart-contract-structure-CqoQ2MzWUzvoEJZ6o7PQTr?ref=chatgpt).
+
+
+
 
 ## Introduction
 Welcome to the FairHiring smart contract, an innovative blockchain solution designed to enhance the hiring process. This README will guide you through the smart contract functionalities and interface usage.
@@ -66,4 +76,3 @@ For technical support or more information on the FairHiring smart contract, plea
 This README can serve as an introductory guide for HR managers and staff. It outlines the smart contract's purpose and provides a basic overview of how to interact with its features.
 ```
 
-When using this README, replace `[support_email/contact]` with the actual contact information where users can get support. Additionally, you may want to add real function signatures if they differ from the examples provided, and ensure all code snippets and commands are accurate and tested.
