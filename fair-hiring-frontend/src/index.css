@@ -1,19 +1,45 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
   padding: 0;
+  color: #333;
 }
 
-div {
+header {
+  background: #0055A4;
+  color: white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+#banner {
+  background: #EEE;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.feature {
+  border: 1px solid #CCC;
+  padding: 20px;
   margin-bottom: 20px;
 }
 
-input, button {
-  margin-top: 10px;
-  margin-right: 5px;
-  padding: 10px;
-}
-
-button {
-  cursor: pointer;
-}
+/* Add more styles as needed */
