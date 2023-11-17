@@ -1,5 +1,4 @@
 body {
-<<<<<<< HEAD
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -43,49 +42,4 @@ nav a {
   margin-bottom: 20px;
 }
 
-=======
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-header {
-    background: #0055A4;
-    color: white;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-nav li {
-    margin-right: 20px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-#banner {
-    background: #EEE;
-    text-align: center;
-    padding: 50px 0;
-}
-
-.feature {
-    border: 1px solid #CCC;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
->>>>>>> 38e5e019430eb5bf27a24c59f1ed061995a9d251
 /* Add more styles as needed */
